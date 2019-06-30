@@ -1,0 +1,74 @@
+
+Welcome to the 2019 automatic speaker verification spoofing and countermeasures challenge (ASVspoof2019). 
+
+Here is a description of training and development data for physical access.
+
+1. ASVspoof2019_PA_train.tar and ASVspoof2019_PA_dev.tar contain audio files for training and development
+   (PA_T_*.flac and PA_D_*.flac, respectively). The audio files in the directories are in the flac format. 
+   The sampling rate is 16 kHz, and stored in 16-bit.
+    
+2. ASVspoof2019_PA_protocols contains protocol files in ASCII format for training and development:
+
+   ASVspoof2019.PA.cm.train.trn.txt: training file list
+   ASVspoof2019.PA.cm.dev.trl.txt: development trials
+
+   Each line of the protocol is formatted as:
+   
+   SPEAKER_ID AUDIO_FILE_NAME ENVIRONMENT_ID ATTACK_ID KEY
+
+   SPEAKER_ID: 		PA_****, a 4-digit speaker ID
+   
+   AUDIO_FILE_NAME:     name of the audio file
+   
+   ENVIRONMENT_ID:	a triplet (S,R,D_s), which take one letter in the set {a,b,c} as categorical value, defined as:
+
+								a		b		c
+			--------------------------------------------------------------------------------
+			S:   Room size (square meters)		2-5		5-10		10-20
+			R:   T60 (ms)				50-200		200-600		600-1000
+			D_s: Talker-to-ASV distance (cm)	10-50		50-100		100-150
+
+
+   ATTACK_ID:		a duple (D_a,Q), which take one letter in the set {A,B,C} as categorical value, defined as
+
+								A		B		C
+			-----------------------------------------------------------------------------
+			Z: Attacker-to-talker distance (cm)	10-50		50-100		> 100
+			Q: Replay device quality		perfect		high		low
+
+
+			for bonafide speech, ATTACK_ID is left blank ('-')
+		
+   KEY:			bonafide: genuine speech
+		   	spoof: replay spoofing speech
+
+
+3. Definition of Replay Device Quality (Q)
+
+
+			Replay device quality
+			=====================
+
+					OB (kHZ)	minF (Hz)	linearity (dB)
+			--------------------------------------------------------------
+			Perfect		inf		0		inf		
+			High		> 10		< 600		> 100
+			Low		< 10		> 600		< 100
+
+			where:	"OB" is the occupied bandwith
+				"minF" is the lower bound of OB
+				"linearity" is the linear/non-linear OB power difference
+
+
+
+References:
+
+D. R. Campbell, K. J. Palomäki, and G. Brown, "A MATLAB simulation of "shoebox" roomacoustics for use in research and teaching,"
+Computing and Information Systems Journal, ISSN1352-9404, vol. 9, no. 3, 2005.
+
+E. Vincent. (2008) Roomsimove. [Online]. Available: http://homepages.loria.fr/evincent/software/Roomsimove_1.4.zip
+
+A. Novak, P. Lotton, and L. Simon, "Synchronized swept-sine: Theory, application, and implementation,"
+Journal of the Audio Engineering Society, vol. 63, no. 10, pp. 786–798, 2015.
+[Online].  Code available: https://ant-novak.com/pages/sss/
+
